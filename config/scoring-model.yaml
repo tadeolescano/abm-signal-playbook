@@ -1,0 +1,69 @@
+# ABM scoring model. Placeholder values; replace {{...}} and recalibrate quarterly.
+version: 1
+max_score: 100
+
+fit:
+  max: 40
+  decays: false
+  criteria:
+    - id: function_headcount_band
+      points: 20
+      rule: "function_headcount >= {{min_sweet_spot}} and function_headcount <= {{max_sweet_spot}}"
+    - id: priority_vertical
+      points: 10
+      rule: "vertical in [{{vertical_1}}, {{vertical_2}}, {{vertical_3}}]"
+    - id: target_stage
+      points: 10
+      rule: "funding_stage in [{{stage_min}} .. {{stage_max}}]"
+
+behaviour:
+  max: 30
+  decays: true
+  criteria:
+    - id: high_intent_visit
+      points: 10
+    - id: content_subscription
+      points: 10
+    - id: event_attendance
+      points: 10
+
+engagement:
+  max: 30
+  decays: true
+  criteria:
+    - id: email_reply_non_negative
+      points: 15
+    - id: linkedin_reply_non_negative
+      points: 15
+
+signal_bonus:
+  points: 10
+  window_days: 90
+  any_of: [decision_maker_hire, funding_round, competitor_tech_detected]
+
+decay:
+  half_life_days: 30
+  expire_after_days: 90
+
+tiers:
+  - name: T1
+    min_score: 80
+    also_require: [priority_vertical, function_headcount_band, live_signal]
+    route: rep_queue
+    alert: team_channel
+  - name: T2
+    min_score: 55
+    route: automated_email_and_linkedin
+  - name: T3
+    min_score: 30
+    route: automated_email_and_retargeting
+  - name: UNQUALIFIED
+    min_score: 0
+    route: exclude
+
+recalculate_on: [any_scoring_input_change]
+
+calibration_log:
+  - date: "{{YYYY-MM-DD}}"
+    change: "Initial weights"
+    evidence: "Defaults"

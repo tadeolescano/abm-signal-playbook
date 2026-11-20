@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ABM Signal Playbook</title>
+<style>
+:root{--bg:#fafaf9;--card:#fff;--line:#e7e5e4;--text:#1c1917;--muted:#78716c;--accent:#1d4ed8;--accent-bg:#eff6ff;--ok:#15803d;--ok-bg:#f0fdf4;--warn:#b45309;--warn-bg:#fffbeb;--radius:10px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
+.wrap{max-width:860px;margin:0 auto;padding:2.5rem 1.25rem 4rem}
+.kicker{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:28px;margin:.3rem 0 .5rem}
+.sub{color:var(--muted);margin-bottom:1.5rem}
+.flow{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.75rem}
+.flow span{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:13px}
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--line);overflow-x:auto;margin-bottom:1.5rem}
+.tab{background:none;border:none;border-bottom:2px solid transparent;padding:.6rem .9rem;font:inherit;font-size:14px;color:var(--muted);cursor:pointer;white-space:nowrap}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.panel{display:none}.panel.active{display:block}
+h2{font-size:18px;margin:1.25rem 0 .6rem}
+p{margin-bottom:.75rem}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-bottom:1rem;font-size:14px}
+th,td{text-align:left;padding:.55rem .75rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#f5f5f4;font-weight:600}
+tr:last-child td{border-bottom:none}
+.pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px}
+.p1{background:var(--ok-bg);color:var(--ok)}.p2{background:var(--accent-bg);color:var(--accent)}.p3{background:var(--warn-bg);color:var(--warn)}
+.callout{background:var(--accent-bg);border-left:3px solid var(--accent);padding:.8rem 1rem;border-radius:6px;margin:1rem 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:1rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:.9rem}
+.card b{display:block;margin-bottom:.25rem}
+.card small{color:var(--muted)}
+.bar{height:6px;background:#e7e5e4;border-radius:3px;margin-top:4px}
+.bar i{display:block;height:6px;background:var(--accent);border-radius:3px}
+code{background:#f5f5f4;padding:1px 5px;border-radius:4px;font-size:13px}
+footer{margin-top:3rem;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">ABM playbook · template</div>
+  <h1>Signal-based ABM for a constrained market</h1>
+  <p class="sub">Tier on fit, act on signals, measure ICP pipeline. Replace every <code>{{placeholder}}</code> with your own values.</p>
+
+  <div class="flow"><span>TAM map</span><span>Enrichment</span><span>Signals</span><span>Scoring</span><span>Tiers</span><span>Plays</span><span>Reporting</span></div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="tam">01 · TAM</button>
+    <button class="tab" data-tab="data">02 · Data</button>
+    <button class="tab" data-tab="signals">03 · Signals</button>
+    <button class="tab" data-tab="scoring">04 · Scoring</button>
+    <button class="tab" data-tab="plays">05 · Plays</button>
+    <button class="tab" data-tab="reporting">06 · Reporting</button>
+  </div>
+
+  <section class="panel active" id="tab-tam">
+    <h2>ICP</h2>
+    <table>
+      <tr><th>Element</th><th>Definition</th></tr>
+      <tr><td>Verticals</td><td><code>{{vertical_1}}</code>, <code>{{vertical_2}}</code>, <code>{{vertical_3}}</code></td></tr>
+      <tr><td>Size</td><td><code>{{min}}</code> to <code>{{max}}</code> people in the buyer's function</td></tr>
+      <tr><td>Stage</td><td><code>{{stage range}}</code></td></tr>
+      <tr><td>Exclusions</td><td>Services firms, no in-house function, pre-product, customers, do-not-contact</td></tr>
+    </table>
+    <h2>Buying committee</h2>
+    <div class="grid">
+      <div class="card"><b>Decision maker</b><small>Owns budget and final call</small></div>
+      <div class="card"><b>Champion</b><small>Feels the pain daily, sells internally</small></div>
+      <div class="card"><b>Influencer</b><small>Evaluates, can veto</small></div>
+    </div>
+    <h2>Target account list</h2>
+    <p>Combine a primary database, scraped vertical directories and social-network sales tools. Deduplicate, then run an AI qualification pass per company: <code>QUALIFIED</code>, <code>NOT_QUALIFIED</code> or <code>INSUFFICIENT_DATA</code>.</p>
+  </section>
+
+  <section class="panel" id="tab-data">
+    <h2>Company properties</h2>
+    <table>
+      <tr><th>Property</th><th>Notes</th></tr>
+      <tr><td><code>function_headcount</code>, <code>size_band</code></td><td>Sweet-spot sizing</td></tr>
+      <tr><td><code>vertical</code>, <code>geo_region</code></td><td>Routing and copy</td></tr>
+      <tr><td><code>competitor_tech</code></td><td>Technographic detection, drives displacement copy</td></tr>
+      <tr><td><code>icp_score</code>, <code>abm_tier</code></td><td>Composite score and tier</td></tr>
+      <tr><td><code>awareness_stage</code></td><td>Identified, Aware, Interested, Considering, Selecting</td></tr>
+      <tr><td><code>enriched_at</code></td><td>Re-enrich when older than 12 months</td></tr>
+    </table>
+    <div class="callout">Do not score on a property you cannot populate for most of the list. Missing data silently becomes zero points.</div>
+  </section>
+
+  <section class="panel" id="tab-signals">
+    <h2>Signal library</h2>
+    <table>
+      <tr><th>Type</th><th>Signal</th><th>Action</th></tr>
+      <tr><td><span class="pill p1">1st party</span></td><td>Discovery booked</td><td>Auto-create deal, alert team</td></tr>
+      <tr><td><span class="pill p1">1st party</span></td><td>Outbound reply</td><td>Alert owner, unenrol</td></tr>
+      <tr><td><span class="pill p1">1st party</span></td><td>Content subscription</td><td>Nurture day 1, 7, 14</td></tr>
+      <tr><td><span class="pill p1">1st party</span></td><td>Self-serve signup</td><td>Trial workflow, rep task at day 7</td></tr>
+      <tr><td><span class="pill p2">2nd party</span></td><td>Profile view / connection accepted</td><td>DM sequence</td></tr>
+      <tr><td><span class="pill p3">3rd party</span></td><td>New decision-maker hire</td><td>Leadership-hire sequence</td></tr>
+      <tr><td><span class="pill p3">3rd party</span></td><td>Funding round</td><td>Funding sequence + score bonus</td></tr>
+      <tr><td><span class="pill p3">3rd party</span></td><td>Hiring spike</td><td>Hiring-spike sequence</td></tr>
+      <tr><td><span class="pill p3">3rd party</span></td><td>Competitor tool detected</td><td>Displacement copy variant</td></tr>
+    </table>
+    <div class="callout">Capturing a signal is easy. Activation is most of the work: every signal needs an action, an owner and an SLA.</div>
+  </section>
+
+  <section class="panel" id="tab-scoring">
+    <h2>Composite score, 0 to 100</h2>
+    <div class="grid">
+      <div class="card"><b>Fit · 40</b><small>Size band 20 · vertical 10 · stage 10</small><div class="bar"><i style="width:40%"></i></div></div>
+      <div class="card"><b>Behaviour · 30</b><small>Intent visit 10 · subscription 10 · event 10</small><div class="bar"><i style="width:30%"></i></div></div>
+      <div class="card"><b>Engagement · 30</b><small>Email reply 15 · LinkedIn reply 15</small><div class="bar"><i style="width:30%"></i></div></div>
+      <div class="card"><b>Signal bonus · +10</b><small>Hire, funding or competitor tech, capped at 100</small><div class="bar"><i style="width:10%"></i></div></div>
+    </div>
+    <p>Behaviour and engagement decay: half after 30 days, gone after 90. Fit does not decay.</p>
+    <h2>Tiers</h2>
+    <table>
+      <tr><th>Tier</th><th>Rule</th><th>Treatment</th></tr>
+      <tr><td>T1</td><td>80+, fit confirmed, live signal</td><td>Manual one-to-one, rep queue and alert</td></tr>
+      <tr><td>T2</td><td>55 to 79</td><td>Automated email + LinkedIn, signal copy</td></tr>
+      <tr><td>T3</td><td>30 to 54</td><td>Automated email, retargeting</td></tr>
+      <tr><td>Unqualified</td><td>Below 30, disqualified, DNC</td><td>Excluded</td></tr>
+    </table>
+  </section>
+
+  <section class="panel" id="tab-plays">
+    <h2>Channel mix by tier</h2>
+    <table>
+      <tr><th>Channel</th><th>T1</th><th>T2</th><th>T3</th></tr>
+      <tr><td>Cold email</td><td>Rep, researched</td><td>Signal-lane copy</td><td>Segment copy</td></tr>
+      <tr><td>LinkedIn</td><td>Rep connect + DM</td><td>Automated DM</td><td>Connect only</td></tr>
+      <tr><td>Paid</td><td>Matched audience</td><td>Matched audience</td><td>Retargeting</td></tr>
+      <tr><td>Network</td><td>Warm-intro asks</td><td>Monthly update asks</td><td>None</td></tr>
+    </table>
+    <div class="callout"><b>Do not fear burning the TAM.</b> Re-engage closed-lost at 30 days (product reasons) and 60 days (timing). Silence burns accounts faster than relevant follow-up.</div>
+  </section>
+
+  <section class="panel" id="tab-reporting">
+    <h2>North star</h2>
+    <p><b>ICP pipeline created, month over month.</b> Not MQL count. Not total pipeline.</p>
+    <table>
+      <tr><th>Report</th><th>Why</th><th>Cadence</th></tr>
+      <tr><td>Signal influence by category</td><td>Which signals preceded meetings (7 and 30 days)</td><td>Monthly</td></tr>
+      <tr><td>Awareness progression by tier</td><td>Movement and regressions</td><td>Weekly</td></tr>
+      <tr><td>Overdue signal tasks by owner</td><td>Enablement gaps</td><td>Weekly</td></tr>
+      <tr><td>T1 with no activity in 30 days</td><td>Should be near zero</td><td>Weekly</td></tr>
+      <tr><td>Pipeline by region</td><td>Routing check</td><td>Monthly</td></tr>
+    </table>
+  </section>
+
+  <footer>ABM Signal Playbook · MIT License · Tadeo Lescano</footer>
+</div>
+<script>
+document.querySelectorAll('.tab').forEach(function(tab){
+  tab.addEventListener('click',function(){
+    document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+    document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
+    tab.classList.add('active');
+    document.getElementById('tab-'+tab.dataset.tab).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

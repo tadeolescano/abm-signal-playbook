@@ -1,0 +1,67 @@
+# Signal library. Every signal has a source type, an action, an owner and an SLA.
+signals:
+  - id: discovery_booked
+    party: first
+    action: create_deal_and_alert
+    owner: system
+    sla: instant
+  - id: outbound_reply
+    party: first
+    action: alert_owner_and_unenrol
+    owner: rep
+    sla: same_day
+  - id: content_subscription
+    party: first
+    action: enrol_nurture
+    nurture_days: [1, 7, 14]
+    owner: marketing
+    sla: automated
+  - id: event_registration
+    party: first
+    action: enrol_event_track
+    owner: marketing
+    sla: automated
+  - id: self_serve_signup
+    party: first
+    action: trial_workflow_then_rep_task
+    rep_task_day: 7
+    owner: rep
+  - id: high_intent_page_visit
+    party: first
+    action: rep_task_if_tier_1_or_2
+    owner: rep
+    sla: 48h
+  - id: profile_view
+    party: second
+    action: start_dm_sequence
+    owner: system
+  - id: connection_accepted
+    party: second
+    action: send_dm_day_0
+    owner: system
+  - id: decision_maker_hire
+    party: third
+    window_days: 90
+    action: enrol_leadership_hire_sequence
+    owner: rep
+    sla: 7d
+  - id: funding_round
+    party: third
+    window_days: 60
+    action: enrol_funding_sequence
+    score_bonus: true
+    owner: system
+  - id: hiring_spike
+    party: third
+    rule: "open_roles_in_function >= {{threshold}}"
+    action: enrol_hiring_spike_sequence
+    owner: system
+  - id: competitor_tech_detected
+    party: third
+    values: ["{{competitor_a}}", "{{competitor_b}}"]
+    action: switch_to_displacement_variant
+    owner: system
+  - id: follows_competitor
+    party: third
+    action: route_to_competitor_follower_lane
+    owner: system
